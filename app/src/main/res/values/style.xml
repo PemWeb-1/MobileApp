@@ -1,0 +1,8 @@
+<resources>
+    <!-- Style untuk teks aplikasi -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+</resources>
