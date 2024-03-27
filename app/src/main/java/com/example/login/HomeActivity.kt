@@ -33,9 +33,17 @@ class HomeActivity : AppCompatActivity() {
         }
 
         // Memeriksa izin lokasi saat memulai aktivitas
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
             // Jika izin tidak diberikan, minta izin lokasi kepada pengguna
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_REQUEST_LOCATION)
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                PERMISSION_REQUEST_LOCATION
+            )
         } else {
             // Jika izin telah diberikan, tampilkan tombol "Lacak Lokasi Saat Ini"
             btnTrackLocation.visibility = View.VISIBLE
@@ -51,6 +59,10 @@ class HomeActivity : AppCompatActivity() {
                 val longitude = location.longitude
                 // Lakukan sesuatu dengan koordinat lokasi (misalnya, tampilkan di log atau tampilkan di UI)
                 Log.d("Location", "Latitude: $latitude, Longitude: $longitude")
+
+                // Menampilkan titik koordinat menggunakan Toast
+                val message = "Latitude: $latitude\nLongitude: $longitude"
+                Toast.makeText(this@HomeActivity, message, Toast.LENGTH_SHORT).show()
             }
 
             override fun onStatusChanged(provider: String, status: Int, extras: Bundle?) {}
@@ -71,11 +83,25 @@ class HomeActivity : AppCompatActivity() {
             Toast.makeText(this, "Izin lokasi tidak diberikan.", Toast.LENGTH_SHORT).show()
             return
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, locationListener)
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0f, locationListener)
+        locationManager.requestLocationUpdates(
+            LocationManager.GPS_PROVIDER,
+            0,
+            0f,
+            locationListener
+        )
+        locationManager.requestLocationUpdates(
+            LocationManager.NETWORK_PROVIDER,
+            0,
+            0f,
+            locationListener
+        )
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             PERMISSION_REQUEST_LOCATION -> {
