@@ -39,16 +39,13 @@ class MainActivity : AppCompatActivity() {
             usernameEditText.setTextColor(Color.BLACK)
             passwordEditText.setTextColor(Color.BLACK)
 
-            // Lakukan validasi data pengguna, misalnya dengan memeriksa ke database
             if (isValidUser(username, password)) {
-                // Jika pengguna valid, tampilkan pesan berhasil login
                 showToast("Login berhasil")
 
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
-                finish() // Mengakhiri activity login agar tidak bisa kembali dengan tombol back
+                finish()
             } else {
-                // Jika pengguna tidak valid, tampilkan pesan gagal login
                 showToast("Login gagal")
             }
         }
@@ -66,12 +63,9 @@ class MainActivity : AppCompatActivity() {
             passwordEditText.setTextColor(Color.BLACK)
             confirmPasswordEditText.setTextColor(Color.BLACK)
 
-            // Lakukan validasi data pendaftaran, misalnya dengan memeriksa ke database
             if (isValidRegistration(username, password, confirmPassword)) {
-                // Jika pendaftaran valid, tampilkan pesan berhasil pendaftaran
                 showToast("Pendaftaran berhasil")
             } else {
-                // Jika pendaftaran tidak valid, tampilkan pesan gagal pendaftaran
                 showToast("Pendaftaran gagal")
             }
         }
@@ -89,22 +83,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isValidUser(username: String, password: String): Boolean {
-        // Lakukan validasi pengguna di sini, misalnya dengan memeriksa ke database
-        // Return true jika pengguna valid, false jika tidak valid
-        // Contoh sederhana: username = "admin", password = "admin"
         return username == "admin" && password == "admin"
     }
 
     private fun isValidRegistration(username: String, password: String, confirmPassword: String): Boolean {
-        // Lakukan validasi pendaftaran di sini, misalnya dengan memeriksa ke database
-        // Return true jika pendaftaran valid, false jika tidak valid
-        // Contoh sederhana: pastikan username dan password tidak kosong dan password sesuai dengan konfirmasi password
         return username.isNotEmpty() && password.isNotEmpty() && password == confirmPassword
     }
 
     private fun showToast(message: String) {
-        // Tampilkan pesan toast di sini
-        // Misalnya menggunakan Toast dari Android SDK
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

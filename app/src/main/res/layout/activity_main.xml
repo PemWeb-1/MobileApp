@@ -7,7 +7,6 @@
     tools:context=".MainActivity"
     android:background="@drawable/bgcolor">
 
-    <!-- Tampilan Login -->
     <LinearLayout
         android:id="@+id/loginLayout"
         android:layout_width="match_parent"

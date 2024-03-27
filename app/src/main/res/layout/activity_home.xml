@@ -21,8 +21,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Konten utama di sini -->
-
     <Button
         android:id="@+id/btnTrackLocation"
         android:layout_width="wrap_content"

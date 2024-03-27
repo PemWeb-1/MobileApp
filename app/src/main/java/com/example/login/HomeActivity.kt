@@ -32,20 +32,17 @@ class HomeActivity : AppCompatActivity() {
             trackCurrentLocation()
         }
 
-        // Memeriksa izin lokasi saat memulai aktivitas
         if (ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            // Jika izin tidak diberikan, minta izin lokasi kepada pengguna
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 PERMISSION_REQUEST_LOCATION
             )
         } else {
-            // Jika izin telah diberikan, tampilkan tombol "Lacak Lokasi Saat Ini"
             btnTrackLocation.visibility = View.VISIBLE
         }
     }
@@ -54,13 +51,10 @@ class HomeActivity : AppCompatActivity() {
         val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val locationListener = object : LocationListener {
             override fun onLocationChanged(location: Location) {
-                // Menggunakan lokasi yang diperoleh
                 val latitude = location.latitude
                 val longitude = location.longitude
-                // Lakukan sesuatu dengan koordinat lokasi (misalnya, tampilkan di log atau tampilkan di UI)
                 Log.d("Location", "Latitude: $latitude, Longitude: $longitude")
 
-                // Menampilkan titik koordinat menggunakan Toast
                 val message = "Latitude: $latitude\nLongitude: $longitude"
                 Toast.makeText(this@HomeActivity, message, Toast.LENGTH_SHORT).show()
             }
@@ -71,7 +65,6 @@ class HomeActivity : AppCompatActivity() {
 
             override fun onProviderDisabled(provider: String) {}
         }
-        // Meminta pembaruan lokasi menggunakan GPS dan jaringan
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -106,10 +99,8 @@ class HomeActivity : AppCompatActivity() {
         when (requestCode) {
             PERMISSION_REQUEST_LOCATION -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Jika izin lokasi diberikan, tampilkan tombol "Lacak Lokasi Saat Ini"
                     btnTrackLocation.visibility = View.VISIBLE
                 } else {
-                    // Jika izin lokasi tidak diberikan, berikan tindakan yang sesuai
                     Toast.makeText(this, "Izin lokasi tidak diberikan.", Toast.LENGTH_SHORT).show()
                 }
             }
