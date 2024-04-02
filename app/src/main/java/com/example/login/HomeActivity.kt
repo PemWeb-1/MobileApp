@@ -1,13 +1,8 @@
 package com.example.login
 
 import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -22,6 +17,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private lateinit var btnTrackLocation: Button
+    private lateinit var location: Location
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +25,7 @@ class HomeActivity : AppCompatActivity() {
 
         btnTrackLocation = findViewById(R.id.btnTrackLocation)
         btnTrackLocation.setOnClickListener {
-            trackCurrentLocation()
+            location.startTracking(btnTrackLocation)
         }
 
         if (ContextCompat.checkSelfPermission(
@@ -45,49 +41,8 @@ class HomeActivity : AppCompatActivity() {
         } else {
             btnTrackLocation.visibility = View.VISIBLE
         }
-    }
 
-    private fun trackCurrentLocation() {
-        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        val locationListener = object : LocationListener {
-            override fun onLocationChanged(location: Location) {
-                val latitude = location.latitude
-                val longitude = location.longitude
-                Log.d("Location", "Latitude: $latitude, Longitude: $longitude")
-
-                val message = "Latitude: $latitude\nLongitude: $longitude"
-                Toast.makeText(this@HomeActivity, message, Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onStatusChanged(provider: String, status: Int, extras: Bundle?) {}
-
-            override fun onProviderEnabled(provider: String) {}
-
-            override fun onProviderDisabled(provider: String) {}
-        }
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            Toast.makeText(this, "Izin lokasi tidak diberikan.", Toast.LENGTH_SHORT).show()
-            return
-        }
-        locationManager.requestLocationUpdates(
-            LocationManager.GPS_PROVIDER,
-            0,
-            0f,
-            locationListener
-        )
-        locationManager.requestLocationUpdates(
-            LocationManager.NETWORK_PROVIDER,
-            0,
-            0f,
-            locationListener
-        )
+        location = Location(this)
     }
 
     override fun onRequestPermissionsResult(
